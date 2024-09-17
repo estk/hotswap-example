@@ -1,0 +1,26 @@
+package hotswap:salutation@0.1.0;
+
+interface user-interface {
+    type tag = u64;
+    enum gender {
+        male,
+        female,
+        other
+    }
+
+    record user {
+        name: string,
+        id: u64,
+        tenant-tags: list<tag>,
+        gender: gender,
+    }
+    record time {
+        seconds: u64,
+        nanos: u64,
+    }
+
+    age-in-weeks: func(u: user, now: time) -> u32;
+}
+world types {
+    export user-interface;
+}
