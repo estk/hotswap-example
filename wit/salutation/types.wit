@@ -26,5 +26,4 @@ interface user {
 }
 world types {
     export user;
-    export user-types;
 }

@@ -18,8 +18,6 @@ interface salutation {
 
 world app {
     import user;
-    import user-types;
-    export salutation-types;
     export salutation;
 }
 

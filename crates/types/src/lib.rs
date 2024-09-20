@@ -1,7 +1,4 @@
-use bindings::exports::hotswap::salutation::{
-    user::Guest,
-    user_types::{Time, User},
-};
+use bindings::exports::hotswap::salutation::user::{Guest, Time, User};
 
 #[allow(warnings)]
 mod bindings;

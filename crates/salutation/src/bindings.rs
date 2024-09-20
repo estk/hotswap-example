@@ -153,6 +153,37 @@ pub mod hotswap {
                 }
             }
         }
+
+        #[allow(dead_code, clippy::all)]
+        pub mod salutation_types {
+            #[used]
+            #[doc(hidden)]
+            #[cfg(target_arch = "wasm32")]
+            static __FORCE_SECTION_REF: fn() =
+                super::super::super::__link_custom_section_describing_imports;
+            use super::super::super::_rt;
+            #[derive(Clone)]
+            pub enum FormalHonorific {
+                Sir,
+                Maam,
+                SirMaam,
+                Custom(_rt::String),
+            }
+            impl ::core::fmt::Debug for FormalHonorific {
+                fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+                    match self {
+                        FormalHonorific::Sir => f.debug_tuple("FormalHonorific::Sir").finish(),
+                        FormalHonorific::Maam => f.debug_tuple("FormalHonorific::Maam").finish(),
+                        FormalHonorific::SirMaam => {
+                            f.debug_tuple("FormalHonorific::SirMaam").finish()
+                        }
+                        FormalHonorific::Custom(e) => {
+                            f.debug_tuple("FormalHonorific::Custom").field(e).finish()
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 #[allow(dead_code)]
@@ -162,48 +193,6 @@ pub mod exports {
         #[allow(dead_code)]
         pub mod salutation {
             #[allow(dead_code, clippy::all)]
-            pub mod salutation_types {
-                #[used]
-                #[doc(hidden)]
-                #[cfg(target_arch = "wasm32")]
-                static __FORCE_SECTION_REF: fn() =
-                    super::super::super::super::__link_custom_section_describing_imports;
-                use super::super::super::super::_rt;
-                #[derive(Clone)]
-                pub enum FormalHonorific {
-                    Sir,
-                    Maam,
-                    SirMaam,
-                    Custom(_rt::String),
-                }
-                impl ::core::fmt::Debug for FormalHonorific {
-                    fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-                        match self {
-                            FormalHonorific::Sir => f.debug_tuple("FormalHonorific::Sir").finish(),
-                            FormalHonorific::Maam => {
-                                f.debug_tuple("FormalHonorific::Maam").finish()
-                            }
-                            FormalHonorific::SirMaam => {
-                                f.debug_tuple("FormalHonorific::SirMaam").finish()
-                            }
-                            FormalHonorific::Custom(e) => {
-                                f.debug_tuple("FormalHonorific::Custom").field(e).finish()
-                            }
-                        }
-                    }
-                }
-                #[doc(hidden)]
-
-                macro_rules! __export_hotswap_salutation_salutation_types_0_1_0_cabi {
-                    ($ty:ident with_types_in $($path_to_types:tt)*) => {
-                        const _: () = {};
-                    };
-                }
-                #[doc(hidden)]
-                pub(crate) use __export_hotswap_salutation_salutation_types_0_1_0_cabi;
-            }
-
-            #[allow(dead_code, clippy::all)]
             pub mod salutation {
                 #[used]
                 #[doc(hidden)]
@@ -212,7 +201,7 @@ pub mod exports {
                     super::super::super::super::__link_custom_section_describing_imports;
                 use super::super::super::super::_rt;
                 pub type User = super::super::super::super::hotswap::salutation::user_types::User;
-                pub type FormalHonorific = super::super::super::super::exports::hotswap::salutation::salutation_types::FormalHonorific;
+                pub type FormalHonorific = super::super::super::super::hotswap::salutation::salutation_types::FormalHonorific;
                 #[doc(hidden)]
                 #[allow(non_snake_case)]
                 pub unsafe fn _export_get_formal_honorific_cabi<T: Guest>(
@@ -235,7 +224,7 @@ pub mod exports {
           gender: super::super::super::super::hotswap::salutation::user_types::Gender::_lift(arg5 as u8),
         });
                     let ptr3 = _RET_AREA.0.as_mut_ptr().cast::<u8>();
-                    use super::super::super::super::exports::hotswap::salutation::salutation_types::FormalHonorific as V5;
+                    use super::super::super::super::hotswap::salutation::salutation_types::FormalHonorific as V5;
                     match result2 {
                         V5::Sir => {
                             *ptr3.add(0).cast::<u8>() = (0i32) as u8;
@@ -422,7 +411,6 @@ mod _rt {
 macro_rules! __export_app_impl {
   ($ty:ident) => (self::export!($ty with_types_in self););
   ($ty:ident with_types_in $($path_to_types_root:tt)*) => (
-  $($path_to_types_root)*::exports::hotswap::salutation::salutation_types::__export_hotswap_salutation_salutation_types_0_1_0_cabi!($ty with_types_in $($path_to_types_root)*::exports::hotswap::salutation::salutation_types);
   $($path_to_types_root)*::exports::hotswap::salutation::salutation::__export_hotswap_salutation_salutation_0_1_0_cabi!($ty with_types_in $($path_to_types_root)*::exports::hotswap::salutation::salutation);
   )
 }
@@ -442,7 +430,7 @@ ender\x03\x04\0\x04user\x03\0\x05\x01r\x02\x07secondsw\x05nanosw\x04\0\x04time\x
 \x02\x04\0\x04time\x03\0\x02\x01@\x02\x01u\x01\x03now\x03\0y\x04\0\x0cage-in-wee\
 ks\x01\x04\x03\x01\x1dhotswap:salutation/user@0.1.0\x05\x03\x01B\x02\x01q\x04\x03\
 sir\0\0\x04maam\0\0\x08sir-maam\0\0\x06custom\x01s\0\x04\0\x10formal-honorific\x03\
-\0\0\x04\x01)hotswap:salutation/salutation-types@0.1.0\x05\x04\x02\x03\0\x02\x10\
+\0\0\x03\x01)hotswap:salutation/salutation-types@0.1.0\x05\x04\x02\x03\0\x02\x10\
 formal-honorific\x01B\x0a\x02\x03\x02\x01\x01\x04\0\x04user\x03\0\0\x02\x03\x02\x01\
 \x02\x04\0\x04time\x03\0\x02\x02\x03\x02\x01\x05\x04\0\x10formal-honorific\x03\0\
 \x04\x01@\x01\x01u\x01\0\x05\x04\0\x14get-formal-honorific\x01\x06\x01@\x01\x01u\
