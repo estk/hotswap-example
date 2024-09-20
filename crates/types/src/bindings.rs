@@ -7,7 +7,7 @@ pub mod exports {
         #[allow(dead_code)]
         pub mod salutation {
             #[allow(dead_code, clippy::all)]
-            pub mod user_interface {
+            pub mod user_types {
                 #[used]
                 #[doc(hidden)]
                 #[cfg(target_arch = "wasm32")]
@@ -81,6 +81,29 @@ pub mod exports {
                     }
                 }
                 #[doc(hidden)]
+
+                macro_rules! __export_hotswap_salutation_user_types_0_1_0_cabi {
+                    ($ty:ident with_types_in $($path_to_types:tt)*) => {
+                        const _: () = {};
+                    };
+                }
+                #[doc(hidden)]
+                pub(crate) use __export_hotswap_salutation_user_types_0_1_0_cabi;
+            }
+
+            #[allow(dead_code, clippy::all)]
+            pub mod user {
+                #[used]
+                #[doc(hidden)]
+                #[cfg(target_arch = "wasm32")]
+                static __FORCE_SECTION_REF: fn() =
+                    super::super::super::super::__link_custom_section_describing_imports;
+                use super::super::super::super::_rt;
+                pub type User =
+                    super::super::super::super::exports::hotswap::salutation::user_types::User;
+                pub type Time =
+                    super::super::super::super::exports::hotswap::salutation::user_types::Time;
+                #[doc(hidden)]
                 #[allow(non_snake_case)]
                 pub unsafe fn _export_age_in_weeks_cabi<T: Guest>(
                     arg0: *mut u8,
@@ -97,18 +120,15 @@ pub mod exports {
                     let len0 = arg1;
                     let bytes0 = _rt::Vec::from_raw_parts(arg0.cast(), len0, len0);
                     let len1 = arg4;
-                    let result2 = T::age_in_weeks(
-                        User {
-                            name: _rt::string_lift(bytes0),
-                            id: arg2 as u64,
-                            tenant_tags: _rt::Vec::from_raw_parts(arg3.cast(), len1, len1),
-                            gender: Gender::_lift(arg5 as u8),
-                        },
-                        Time {
-                            seconds: arg6 as u64,
-                            nanos: arg7 as u64,
-                        },
-                    );
+                    let result2 = T::age_in_weeks(super::super::super::super::exports::hotswap::salutation::user_types::User{
+          name: _rt::string_lift(bytes0),
+          id: arg2 as u64,
+          tenant_tags: _rt::Vec::from_raw_parts(arg3.cast(), len1, len1),
+          gender: super::super::super::super::exports::hotswap::salutation::user_types::Gender::_lift(arg5 as u8),
+        }, super::super::super::super::exports::hotswap::salutation::user_types::Time{
+          seconds: arg6 as u64,
+          nanos: arg7 as u64,
+        });
                     _rt::as_i32(result2)
                 }
                 pub trait Guest {
@@ -116,17 +136,17 @@ pub mod exports {
                 }
                 #[doc(hidden)]
 
-                macro_rules! __export_hotswap_salutation_user_interface_0_1_0_cabi{
+                macro_rules! __export_hotswap_salutation_user_0_1_0_cabi{
         ($ty:ident with_types_in $($path_to_types:tt)*) => (const _: () = {
 
-          #[export_name = "hotswap:salutation/user-interface@0.1.0#age-in-weeks"]
+          #[export_name = "hotswap:salutation/user@0.1.0#age-in-weeks"]
           unsafe extern "C" fn export_age_in_weeks(arg0: *mut u8,arg1: usize,arg2: i64,arg3: *mut u8,arg4: usize,arg5: i32,arg6: i64,arg7: i64,) -> i32 {
             $($path_to_types)*::_export_age_in_weeks_cabi::<$ty>(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
           }
         };);
       }
                 #[doc(hidden)]
-                pub(crate) use __export_hotswap_salutation_user_interface_0_1_0_cabi;
+                pub(crate) use __export_hotswap_salutation_user_0_1_0_cabi;
             }
         }
     }
@@ -241,7 +261,8 @@ mod _rt {
 macro_rules! __export_types_impl {
   ($ty:ident) => (self::export!($ty with_types_in self););
   ($ty:ident with_types_in $($path_to_types_root:tt)*) => (
-  $($path_to_types_root)*::exports::hotswap::salutation::user_interface::__export_hotswap_salutation_user_interface_0_1_0_cabi!($ty with_types_in $($path_to_types_root)*::exports::hotswap::salutation::user_interface);
+  $($path_to_types_root)*::exports::hotswap::salutation::user_types::__export_hotswap_salutation_user_types_0_1_0_cabi!($ty with_types_in $($path_to_types_root)*::exports::hotswap::salutation::user_types);
+  $($path_to_types_root)*::exports::hotswap::salutation::user::__export_hotswap_salutation_user_0_1_0_cabi!($ty with_types_in $($path_to_types_root)*::exports::hotswap::salutation::user);
   )
 }
 #[doc(inline)]
@@ -250,15 +271,17 @@ pub(crate) use __export_types_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.25.0:types:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 362] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xee\x01\x01A\x02\x01\
-A\x02\x01B\x0b\x01w\x04\0\x03tag\x03\0\0\x01m\x03\x04male\x06female\x05other\x04\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 443] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xbf\x02\x01A\x02\x01\
+A\x06\x01B\x09\x01w\x04\0\x03tag\x03\0\0\x01m\x03\x04male\x06female\x05other\x04\
 \0\x06gender\x03\0\x02\x01p\x01\x01r\x04\x04names\x02idw\x0btenant-tags\x04\x06g\
 ender\x03\x04\0\x04user\x03\0\x05\x01r\x02\x07secondsw\x05nanosw\x04\0\x04time\x03\
-\0\x07\x01@\x02\x01u\x06\x03now\x08\0y\x04\0\x0cage-in-weeks\x01\x09\x04\x01'hot\
-swap:salutation/user-interface@0.1.0\x05\0\x04\x01\x1ehotswap:salutation/types@0\
-.1.0\x04\0\x0b\x0b\x01\0\x05types\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\
-\x0dwit-component\x070.208.1\x10wit-bindgen-rust\x060.25.0";
+\0\x07\x04\x01#hotswap:salutation/user-types@0.1.0\x05\0\x02\x03\0\0\x04user\x02\
+\x03\0\0\x04time\x01B\x06\x02\x03\x02\x01\x01\x04\0\x04user\x03\0\0\x02\x03\x02\x01\
+\x02\x04\0\x04time\x03\0\x02\x01@\x02\x01u\x01\x03now\x03\0y\x04\0\x0cage-in-wee\
+ks\x01\x04\x04\x01\x1dhotswap:salutation/user@0.1.0\x05\x03\x04\x01\x1ehotswap:s\
+alutation/types@0.1.0\x04\0\x0b\x0b\x01\0\x05types\x03\0\0\0G\x09producers\x01\x0c\
+processed-by\x02\x0dwit-component\x070.208.1\x10wit-bindgen-rust\x060.25.0";
 
 #[inline(never)]
 #[doc(hidden)]

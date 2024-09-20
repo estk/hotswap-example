@@ -1,19 +1,25 @@
 package hotswap:salutation@0.1.0;
 
-interface salutation {
-    use user-interface.{user};
-
+interface salutation-types {
     variant formal-honorific {
         sir,
         maam,
         sir-maam,
         custom(string)
     } 
+}
+interface salutation {
+    use user-types.{user, time};
+    use salutation-types.{formal-honorific};
+
     get-formal-honorific: func(u: user) -> formal-honorific;
     greet: func(u: user) -> string;
 }
 
 world app {
+    import user;
+    import user-types;
+    export salutation-types;
     export salutation;
 }
 

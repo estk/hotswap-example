@@ -5,7 +5,7 @@ pub mod hotswap {
     #[allow(dead_code)]
     pub mod salutation {
         #[allow(dead_code, clippy::all)]
-        pub mod user_interface {
+        pub mod user_types {
             #[used]
             #[doc(hidden)]
             #[cfg(target_arch = "wasm32")]
@@ -78,10 +78,22 @@ pub mod hotswap {
                         .finish()
                 }
             }
+        }
+
+        #[allow(dead_code, clippy::all)]
+        pub mod user {
+            #[used]
+            #[doc(hidden)]
+            #[cfg(target_arch = "wasm32")]
+            static __FORCE_SECTION_REF: fn() =
+                super::super::super::__link_custom_section_describing_imports;
+            use super::super::super::_rt;
+            pub type User = super::super::super::hotswap::salutation::user_types::User;
+            pub type Time = super::super::super::hotswap::salutation::user_types::Time;
             #[allow(unused_unsafe, clippy::all)]
             pub fn age_in_weeks(u: &User, now: Time) -> u32 {
                 unsafe {
-                    let User {
+                    let super::super::super::hotswap::salutation::user_types::User {
                         name: name0,
                         id: id0,
                         tenant_tags: tenant_tags0,
@@ -93,13 +105,13 @@ pub mod hotswap {
                     let vec2 = tenant_tags0;
                     let ptr2 = vec2.as_ptr().cast::<u8>();
                     let len2 = vec2.len();
-                    let Time {
+                    let super::super::super::hotswap::salutation::user_types::Time {
                         seconds: seconds3,
                         nanos: nanos3,
                     } = now;
 
                     #[cfg(target_arch = "wasm32")]
-                    #[link(wasm_import_module = "hotswap:salutation/user-interface@0.1.0")]
+                    #[link(wasm_import_module = "hotswap:salutation/user@0.1.0")]
                     extern "C" {
                         #[link_name = "age-in-weeks"]
                         fn wit_import(
@@ -150,15 +162,13 @@ pub mod exports {
         #[allow(dead_code)]
         pub mod salutation {
             #[allow(dead_code, clippy::all)]
-            pub mod salutation {
+            pub mod salutation_types {
                 #[used]
                 #[doc(hidden)]
                 #[cfg(target_arch = "wasm32")]
                 static __FORCE_SECTION_REF: fn() =
                     super::super::super::super::__link_custom_section_describing_imports;
                 use super::super::super::super::_rt;
-                pub type User =
-                    super::super::super::super::hotswap::salutation::user_interface::User;
                 #[derive(Clone)]
                 pub enum FormalHonorific {
                     Sir,
@@ -183,6 +193,27 @@ pub mod exports {
                     }
                 }
                 #[doc(hidden)]
+
+                macro_rules! __export_hotswap_salutation_salutation_types_0_1_0_cabi {
+                    ($ty:ident with_types_in $($path_to_types:tt)*) => {
+                        const _: () = {};
+                    };
+                }
+                #[doc(hidden)]
+                pub(crate) use __export_hotswap_salutation_salutation_types_0_1_0_cabi;
+            }
+
+            #[allow(dead_code, clippy::all)]
+            pub mod salutation {
+                #[used]
+                #[doc(hidden)]
+                #[cfg(target_arch = "wasm32")]
+                static __FORCE_SECTION_REF: fn() =
+                    super::super::super::super::__link_custom_section_describing_imports;
+                use super::super::super::super::_rt;
+                pub type User = super::super::super::super::hotswap::salutation::user_types::User;
+                pub type FormalHonorific = super::super::super::super::exports::hotswap::salutation::salutation_types::FormalHonorific;
+                #[doc(hidden)]
                 #[allow(non_snake_case)]
                 pub unsafe fn _export_get_formal_honorific_cabi<T: Guest>(
                     arg0: *mut u8,
@@ -197,24 +228,25 @@ pub mod exports {
                     let len0 = arg1;
                     let bytes0 = _rt::Vec::from_raw_parts(arg0.cast(), len0, len0);
                     let len1 = arg4;
-                    let result2 = T::get_formal_honorific(super::super::super::super::hotswap::salutation::user_interface::User{
+                    let result2 = T::get_formal_honorific(super::super::super::super::hotswap::salutation::user_types::User{
           name: _rt::string_lift(bytes0),
           id: arg2 as u64,
           tenant_tags: _rt::Vec::from_raw_parts(arg3.cast(), len1, len1),
-          gender: super::super::super::super::hotswap::salutation::user_interface::Gender::_lift(arg5 as u8),
+          gender: super::super::super::super::hotswap::salutation::user_types::Gender::_lift(arg5 as u8),
         });
                     let ptr3 = _RET_AREA.0.as_mut_ptr().cast::<u8>();
+                    use super::super::super::super::exports::hotswap::salutation::salutation_types::FormalHonorific as V5;
                     match result2 {
-                        FormalHonorific::Sir => {
+                        V5::Sir => {
                             *ptr3.add(0).cast::<u8>() = (0i32) as u8;
                         }
-                        FormalHonorific::Maam => {
+                        V5::Maam => {
                             *ptr3.add(0).cast::<u8>() = (1i32) as u8;
                         }
-                        FormalHonorific::SirMaam => {
+                        V5::SirMaam => {
                             *ptr3.add(0).cast::<u8>() = (2i32) as u8;
                         }
-                        FormalHonorific::Custom(e) => {
+                        V5::Custom(e) => {
                             *ptr3.add(0).cast::<u8>() = (3i32) as u8;
                             let vec4 = (e.into_bytes()).into_boxed_slice();
                             let ptr4 = vec4.as_ptr().cast::<u8>();
@@ -256,11 +288,11 @@ pub mod exports {
                     let len0 = arg1;
                     let bytes0 = _rt::Vec::from_raw_parts(arg0.cast(), len0, len0);
                     let len1 = arg4;
-                    let result2 = T::greet(super::super::super::super::hotswap::salutation::user_interface::User{
+                    let result2 = T::greet(super::super::super::super::hotswap::salutation::user_types::User{
         name: _rt::string_lift(bytes0),
         id: arg2 as u64,
         tenant_tags: _rt::Vec::from_raw_parts(arg3.cast(), len1, len1),
-        gender: super::super::super::super::hotswap::salutation::user_interface::Gender::_lift(arg5 as u8),
+        gender: super::super::super::super::hotswap::salutation::user_types::Gender::_lift(arg5 as u8),
       });
                     let ptr3 = _RET_AREA.0.as_mut_ptr().cast::<u8>();
                     let vec4 = (result2.into_bytes()).into_boxed_slice();
@@ -390,6 +422,7 @@ mod _rt {
 macro_rules! __export_app_impl {
   ($ty:ident) => (self::export!($ty with_types_in self););
   ($ty:ident with_types_in $($path_to_types_root:tt)*) => (
+  $($path_to_types_root)*::exports::hotswap::salutation::salutation_types::__export_hotswap_salutation_salutation_types_0_1_0_cabi!($ty with_types_in $($path_to_types_root)*::exports::hotswap::salutation::salutation_types);
   $($path_to_types_root)*::exports::hotswap::salutation::salutation::__export_hotswap_salutation_salutation_0_1_0_cabi!($ty with_types_in $($path_to_types_root)*::exports::hotswap::salutation::salutation);
   )
 }
@@ -399,19 +432,24 @@ pub(crate) use __export_app_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.25.0:app:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 535] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x9d\x03\x01A\x02\x01\
-A\x05\x01B\x0b\x01w\x04\0\x03tag\x03\0\0\x01m\x03\x04male\x06female\x05other\x04\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 719] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xd5\x04\x01A\x02\x01\
+A\x0b\x01B\x09\x01w\x04\0\x03tag\x03\0\0\x01m\x03\x04male\x06female\x05other\x04\
 \0\x06gender\x03\0\x02\x01p\x01\x01r\x04\x04names\x02idw\x0btenant-tags\x04\x06g\
 ender\x03\x04\0\x04user\x03\0\x05\x01r\x02\x07secondsw\x05nanosw\x04\0\x04time\x03\
-\0\x07\x01@\x02\x01u\x06\x03now\x08\0y\x04\0\x0cage-in-weeks\x01\x09\x03\x01'hot\
-swap:salutation/user-interface@0.1.0\x05\0\x02\x03\0\0\x04user\x01B\x08\x02\x03\x02\
-\x01\x01\x04\0\x04user\x03\0\0\x01q\x04\x03sir\0\0\x04maam\0\0\x08sir-maam\0\0\x06\
-custom\x01s\0\x04\0\x10formal-honorific\x03\0\x02\x01@\x01\x01u\x01\0\x03\x04\0\x14\
-get-formal-honorific\x01\x04\x01@\x01\x01u\x01\0s\x04\0\x05greet\x01\x05\x04\x01\
-#hotswap:salutation/salutation@0.1.0\x05\x02\x04\x01\x1chotswap:salutation/app@0\
-.1.0\x04\0\x0b\x09\x01\0\x03app\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0d\
-wit-component\x070.208.1\x10wit-bindgen-rust\x060.25.0";
+\0\x07\x03\x01#hotswap:salutation/user-types@0.1.0\x05\0\x02\x03\0\0\x04user\x02\
+\x03\0\0\x04time\x01B\x06\x02\x03\x02\x01\x01\x04\0\x04user\x03\0\0\x02\x03\x02\x01\
+\x02\x04\0\x04time\x03\0\x02\x01@\x02\x01u\x01\x03now\x03\0y\x04\0\x0cage-in-wee\
+ks\x01\x04\x03\x01\x1dhotswap:salutation/user@0.1.0\x05\x03\x01B\x02\x01q\x04\x03\
+sir\0\0\x04maam\0\0\x08sir-maam\0\0\x06custom\x01s\0\x04\0\x10formal-honorific\x03\
+\0\0\x04\x01)hotswap:salutation/salutation-types@0.1.0\x05\x04\x02\x03\0\x02\x10\
+formal-honorific\x01B\x0a\x02\x03\x02\x01\x01\x04\0\x04user\x03\0\0\x02\x03\x02\x01\
+\x02\x04\0\x04time\x03\0\x02\x02\x03\x02\x01\x05\x04\0\x10formal-honorific\x03\0\
+\x04\x01@\x01\x01u\x01\0\x05\x04\0\x14get-formal-honorific\x01\x06\x01@\x01\x01u\
+\x01\0s\x04\0\x05greet\x01\x07\x04\x01#hotswap:salutation/salutation@0.1.0\x05\x06\
+\x04\x01\x1chotswap:salutation/app@0.1.0\x04\0\x0b\x09\x01\0\x03app\x03\0\0\0G\x09\
+producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.208.1\x10wit-bindgen-rus\
+t\x060.25.0";
 
 #[inline(never)]
 #[doc(hidden)]

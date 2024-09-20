@@ -2,5 +2,6 @@ package hotswap:salutation@0.1.0;
 
 world cli {
     import salutation;
-    import user-interface;
+    import user-types;
+    import user;
 }

@@ -1,6 +1,6 @@
 package hotswap:salutation@0.1.0;
 
-interface user-interface {
+interface user-types {
     type tag = u64;
     enum gender {
         male,
@@ -18,9 +18,13 @@ interface user-interface {
         seconds: u64,
         nanos: u64,
     }
+}
 
+interface user {
+    use user-types.{user, time};
     age-in-weeks: func(u: user, now: time) -> u32;
 }
 world types {
-    export user-interface;
+    export user;
+    export user-types;
 }
