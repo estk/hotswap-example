@@ -2,7 +2,10 @@ use std::fmt::Display;
 
 use bindings::{
     exports::hotswap::salutation::salutation::{FormalHonorific, Guest},
-    hotswap::salutation::user_interface::{age_in_weeks, Gender, Time, User},
+    hotswap::salutation::{
+        user::age_in_weeks,
+        user_types::{Gender, Time, User},
+    },
 };
 
 #[expect(warnings)]
